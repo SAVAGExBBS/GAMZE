@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizim Oda ✨</title>
+    <title> Best Dinar Girl✨</title>
     <style>
         /* --- ARKA PLAN VE GEÇİŞ AYARLARI --- */
         body { 
@@ -41,6 +41,45 @@
         .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease; display: none; }
         .active { opacity: 1; display: block; }
 
+        /* --- SAĞ TARAFTAKİ PEMBE CANLI SAYAÇ --- */
+        #liveCounter {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 182, 193, 0.85); /* Şeffaf tatlı pembe */
+            border: 2px solid #ffb6c1;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
+            z-index: 100;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            min-width: 140px;
+        }
+        .counter-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #d81b60;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .counter-time {
+            font-size: 15px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .counter-days {
+            font-size: 24px;
+            color: #ff4081;
+            text-shadow: none;
+            font-weight: 800;
+        }
+
         /* Anı Videosu Penceresi */
         #anilarOverlay { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; background: rgba(255, 255, 255, 0.98); border: 2px solid #ff9f43; border-radius: 24px; z-index: 4000; padding: 20px; flex-direction: column; align-items: center; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
         .video-container { width: 100%; height: 200px; background: #000; border-radius: 16px; margin-bottom: 15px; overflow: hidden; }
@@ -65,17 +104,36 @@
         /* Çiçek Yağmuru Efekti */
         .snowflake { position: fixed; top: -60px; pointer-events: none; animation: fall linear infinite; z-index: 5; font-size: 20px; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* Mobil Cihazlar İçin Küçük Ekran Ayarı */
+        @media (max-width: 768px) {
+            #liveCounter {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                order: -1; /* Slaytın üstüne taşınır */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ANA BAŞLIK -->
-    <div id="text">BİZİM ODAMIZA HOŞ GELDİN! ✨</div>
+    <div id="liveCounter">
+        <div class="counter-title">ARKADAŞLIK GÜNLERİMİZ 💞</div>
+        <div class="counter-time">
+            <span id="cDays" class="counter-days">219</span>
+            <span style="color:#d81b60; font-size: 11px;">Gün</span>
+            <span id="cTime" style="color: #4a3f35;">00:00:00</span>
+        </div>
+    </div>
+
+    <div id="text">Best Dinar Girl✨</div>
     
-    <!-- 8 ADET FOTOĞRAFLIK SLAYT GALERİSİ -->
     <div id="gallery"></div>
 
-    <!-- ANILAR PENCERESİ (1 VİDEO) -->
     <div id="anilarOverlay">
         <h3 style="margin-top:0; color:#ff7a59;">🎬 Bizim Videomuz</h3>
         <div class="video-container">
@@ -84,17 +142,15 @@
         <button class="close-ani-btn" onclick="closeAnilar()">Kapat</button>
     </div>
 
-    <!-- KONTROLLER VE TEK ŞARKILIK OYNATICI -->
     <div id="controls">
         <div class="btn-group">
-            <button class="control-btn" onclick="changeBackground()">🖼️ Manzarayı Değiştir</button>
-            <button class="control-btn ani-btn" onclick="openAnilar()">🎬 VİDEOMUZU İZLE</button>
+            <button class="control-btn" onclick="changeBackground()">🖼️ MANZARAYI DEĞİŞ</button>
+            <button class="control-btn ani-btn" onclick="openAnilar()">🎬 ANILARIMIZ</button>
         </div>
         
         <div id="musicPlayer">
             <div class="player-info">
-                <img id="songImg" src="sarki-kapak.jpg"> <!-- sarki-kapak.jpg dosyasını okur -->
-                <div>
+                <img id="songImg" src="sarki-kapak.jpg"> <div>
                     <div style="font-size:11px; color:#aaa; font-weight:bold;">ŞU AN ÇALAN</div>
                     <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Günün Şarkısı ☕</div>
                 </div>
@@ -106,7 +162,6 @@
 
     <audio id="audio"></audio>
 
-    <!-- SİTE FONKSİYONLARI -->
     <script>
         const aud = document.getElementById("audio");
 
@@ -123,11 +178,12 @@
         // Sayfa yüklenir yüklenmez doğrudan her şeyi başlatır
         window.onload = function() {
             start();
+            initCounter();
         }
 
         function start() {
             aud.src = sarkiDosyasi;
-            aud.play().catch(e => console.log("Otomatik oynatma tarayıcı engeline takılmış olabilir, sayfaya dokununca çalar."));
+            aud.play().catch(e => console.log("Otomatik oynatma engellendi, etkileşim bekleniyor."));
             startRain();
             createGallery();
             setInterval(nextSlide, 3000); // 3 saniyede bir fotoğraf değişir
@@ -138,6 +194,38 @@
                     document.getElementById("progressFill").style.width = pct + "%";
                 }
             });
+        }
+
+        // --- CANLI SAYAÇ SİSTEMİ ---
+        // Sayfa ilk kez açıldığında milisaniye cinsinden başlangıç zamanını kaydeder (219 günden başlatır)
+        function initCounter() {
+            let startTime = localStorage.getItem('oda_start_time');
+            if (!startTime) {
+                // Şu anki zamandan 219 gün çıkartarak milisaniye başlangıcı buluyoruz
+                const daysInMs = 219 * 24 * 60 * 60 * 1000;
+                startTime = Date.now() - daysInMs;
+                localStorage.setItem('oda_start_time', startTime);
+            }
+            
+            function updateCounter() {
+                const diff = Date.now() - parseInt(startTime);
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                // Başına sıfır ekleme formatı (05:02:09 gibi)
+                const hDisplay = hours < 10 ? "0" + hours : hours;
+                const mDisplay = minutes < 10 ? "0" + minutes : minutes;
+                const sDisplay = seconds < 10 ? "0" + seconds : seconds;
+                
+                document.getElementById("cDays").innerText = days;
+                document.getElementById("cTime").innerText = hDisplay + ":" + mDisplay + ":" + sDisplay;
+            }
+            
+            updateCounter();
+            setInterval(updateCounter, 1000); // Her saniye günceller
         }
 
         // İki Arka Plan Arasında Geçiş Fonksiyonu

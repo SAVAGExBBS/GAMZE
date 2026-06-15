@@ -8,9 +8,9 @@
         /* --- ARKA PLAN VE GEÇİŞ AYARLARI --- */
         body { 
             margin: 0; 
-            background-image: url('manzara1.png.png'); /* GitHub'daki tam adıyla eşitledim */
+            background-image: url('manzara1.png.png'); 
             background-size: cover; 
-            background-position: center; 
+            background-position: center center; 
             background-repeat: no-repeat; 
             background-attachment: fixed; 
             background-color: #fdf6ec; 
@@ -20,13 +20,14 @@
             align-items: center; 
             justify-content: center; 
             height: 100vh; 
+            width: 100vw;
             overflow: hidden; 
             font-family: 'Segoe UI', sans-serif; 
             transition: background-image 0.5s ease-in-out; 
         }
         
         #text { 
-            font-size: 26px; 
+            font-size: 32px; /* Başlık daha güzel dursun diye biraz büyüttüm kanka */
             font-weight: bold; 
             margin-bottom: 20px; 
             text-align: center; 
@@ -129,12 +130,12 @@
         </div>
     </div>
 
-    <div id="text">BİZİM ODAMIZA HOŞ GELDİN! ✨</div>
+    <div id="text">IYİKİM♡</div>
     
     <div id="gallery"></div>
 
     <div id="anilarOverlay">
-        <h3 style="margin-top:0; color:#ff7a59;">🎬 ANILARIMIZ</h3>
+        <h3 style="margin-top:0; color:#ff7a59;">🎬 Bizim Videomuz</h3>
         <div class="video-container">
             <video id="aniVideo" controls></video>
         </div>
@@ -143,15 +144,16 @@
 
     <div id="controls">
         <div class="btn-group">
-            <button class="control-btn" onclick="changeBackground()">🖼️ MANZARAYI DEĞİŞ</button>
-            <button class="control-btn ani-btn" onclick="openAnilar()">🎬 ANILARIMIZ</button>
+            <button class="control-btn" onclick="changeBackground()">🖼️ Manzarayı Değiştir</button>
+            <button class="control-btn ani-btn" onclick="openAnilar()">🎬 VİDEOMUZU İZLE</button>
         </div>
         
         <div id="musicPlayer">
             <div class="player-info">
-                <img id="songImg" src="sarki-kapak.jpg.png"> <div>
+                <img id="songImg" src="sarki-kapak.jpg.png"> 
+                <div>
                     <div style="font-size:11px; color:#aaa; font-weight:bold;">ŞU AN ÇALAN</div>
-                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Farazi V Kayra</div>
+                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Günün Şarkısı ☕</div>
                 </div>
                 <button id="pBtn" onclick="pPause()" style="background:none; border:none; color:#ff7a59; font-size:26px; cursor:pointer; margin-left:auto; outline:none;">⏸</button>
             </div>
@@ -164,11 +166,9 @@
     <script>
         const aud = document.getElementById("audio");
 
-        // GitHub'daki Çift Uzantılı Dosya İsimleri
         const sarkiDosyasi = "sarki.mp3.mp3";
         const videoDosyasi = "video.mp4.mp4";
         
-        // GitHub'daki Çift Uzantılı Resim İsimleri
         const resimListesi = [
             "resim1.jpeg.jpeg", "resim2.jpeg.jpeg", "resim3.jpeg.jpeg", "resim4.jpeg.jpeg", 
             "resim5.jpeg.jpeg", "resim6.jpeg.jpeg", "resim7.jpeg.jpeg", "resim8.jpeg.jpeg"
@@ -220,11 +220,10 @@
             setInterval(updateCounter, 1000);
         }
 
-        // İki Arka Plan Arasında Geçiş
         let currentBG = 1;
         function changeBackground() {
             if (currentBG === 1) {
-                document.body.style.backgroundImage = "url('manzara2.png.jpeg')"; /* Sol listedeki isimle eşitlendi */
+                document.body.style.backgroundImage = "url('manzara2.png.jpg')"; 
                 currentBG = 2;
             } else {
                 document.body.style.backgroundImage = "url('manzara1.png.png')";

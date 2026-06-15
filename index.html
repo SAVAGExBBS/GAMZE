@@ -27,7 +27,7 @@
         }
         
         #text { 
-            font-size: 32px; /* Başlık daha güzel dursun diye biraz büyüttüm kanka */
+            font-size: 32px; 
             font-weight: bold; 
             margin-bottom: 20px; 
             text-align: center; 
@@ -130,7 +130,7 @@
         </div>
     </div>
 
-    <div id="text">IYİKİM♡</div>
+    <div id="text">İYİKİM♡</div>
     
     <div id="gallery"></div>
 
@@ -144,7 +144,7 @@
 
     <div id="controls">
         <div class="btn-group">
-            <button class="control-btn" onclick="changeBackground()">🖼️ Manzarayı Değiştir</button>
+            <button class="control-btn" onclick="changeBackground()">🖼️ MANZARAYI DEĞİŞ</button>
             <button class="control-btn ani-btn" onclick="openAnilar()">🎬 VİDEOMUZU İZLE</button>
         </div>
         
@@ -153,7 +153,7 @@
                 <img id="songImg" src="sarki-kapak.jpg.png"> 
                 <div>
                     <div style="font-size:11px; color:#aaa; font-weight:bold;">ŞU AN ÇALAN</div>
-                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Günün Şarkısı ☕</div>
+                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Farazi V Kayra</div>
                 </div>
                 <button id="pBtn" onclick="pPause()" style="background:none; border:none; color:#ff7a59; font-size:26px; cursor:pointer; margin-left:auto; outline:none;">⏸</button>
             </div>
@@ -220,10 +220,11 @@
             setInterval(updateCounter, 1000);
         }
 
+        // BURASI TAM OLARAK LİSTENDİRİLEN .jpeg ADINA GÖRE DÜZELTİLDİ
         let currentBG = 1;
         function changeBackground() {
             if (currentBG === 1) {
-                document.body.style.backgroundImage = "url('manzara2.png.jpg')"; 
+                document.body.style.backgroundImage = "url('manzara2.png.jpeg')"; 
                 currentBG = 2;
             } else {
                 document.body.style.backgroundImage = "url('manzara1.png.png')";

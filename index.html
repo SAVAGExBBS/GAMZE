@@ -80,7 +80,7 @@
             font-weight: 800;
         }
 
-        /* --- MANZARA 2 PENCERESİ (POPUP AMBİYANSI) --- */
+        /* --- MANZARA PENCERESİ (POPUP) --- */
         #manzaraOverlay {
             display: none;
             position: fixed;
@@ -88,7 +88,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 320px;
-            height: 560px; /* Telefon ekranı oranında dikey durması için */
+            height: 560px; 
             background: #fff;
             border-radius: 24px;
             z-index: 5000;
@@ -105,7 +105,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             color: #ff7a59;
             border: none;
             width: 35px;
@@ -204,7 +204,7 @@
                 <img id="songImg" src="sarki-kapak.jpg.png"> 
                 <div>
                     <div style="font-size:11px; color:#aaa; font-weight:bold;">ŞU AN ÇALAN</div>
-                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Günün Şarkısı ☕</div>
+                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Farazi V Kayra</div>
                 </div>
                 <button id="pBtn" onclick="pPause()" style="background:none; border:none; color:#ff7a59; font-size:26px; cursor:pointer; margin-left:auto; outline:none;">⏸</button>
             </div>
@@ -216,7 +216,6 @@
 
     <script>
         const aud = document.getElementById("audio");
-
         const sarkiDosyasi = "sarki.mp3.mp3";
         const videoDosyasi = "video.mp4.mp4";
         
@@ -271,7 +270,6 @@
             setInterval(updateCounter, 1000);
         }
 
-        // Manzara Açma ve Kapatma Fonksiyonları (YENİ)
         function openManzara() {
             document.getElementById('manzaraOverlay').style.display = 'block';
         }

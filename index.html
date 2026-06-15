@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Best Dinar Girl✨</title>
+    <title>Best Dinar Girl✨</title>
     <style>
         /* --- ARKA PLAN VE GEÇİŞ AYARLARI --- */
         body { 
             margin: 0; 
-            background-image: url('manzara1.png'); /* Klasördeki manzara1.png dosyasını okur */
+            background-image: url('manzara1.png.png'); /* GitHub'daki tam adıyla eşitledim */
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat; 
@@ -47,7 +47,7 @@
             right: 25px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 182, 193, 0.85); /* Şeffaf tatlı pembe */
+            background: rgba(255, 182, 193, 0.85); 
             border: 2px solid #ffb6c1;
             padding: 15px 20px;
             border-radius: 20px;
@@ -105,7 +105,6 @@
         .snowflake { position: fixed; top: -60px; pointer-events: none; animation: fall linear infinite; z-index: 5; font-size: 20px; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Mobil Cihazlar İçin Küçük Ekran Ayarı */
         @media (max-width: 768px) {
             #liveCounter {
                 position: relative;
@@ -114,7 +113,7 @@
                 transform: none;
                 margin-top: 15px;
                 margin-bottom: 5px;
-                order: -1; /* Slaytın üstüne taşınır */
+                order: -1;
             }
         }
     </style>
@@ -122,7 +121,7 @@
 <body>
 
     <div id="liveCounter">
-        <div class="counter-title">ARKADAŞLIK GÜNLERİMİZ 💞</div>
+        <div class="counter-title">GEÇEN SÜRE 💞</div>
         <div class="counter-time">
             <span id="cDays" class="counter-days">219</span>
             <span style="color:#d81b60; font-size: 11px;">Gün</span>
@@ -130,12 +129,12 @@
         </div>
     </div>
 
-    <div id="text">Best Dinar Girl✨</div>
+    <div id="text">BİZİM ODAMIZA HOŞ GELDİN! ✨</div>
     
     <div id="gallery"></div>
 
     <div id="anilarOverlay">
-        <h3 style="margin-top:0; color:#ff7a59;">🎬 Bizim Videomuz</h3>
+        <h3 style="margin-top:0; color:#ff7a59;">🎬 ANILARIMIZ</h3>
         <div class="video-container">
             <video id="aniVideo" controls></video>
         </div>
@@ -150,9 +149,9 @@
         
         <div id="musicPlayer">
             <div class="player-info">
-                <img id="songImg" src="sarki-kapak.jpg"> <div>
+                <img id="songImg" src="sarki-kapak.jpg.png"> <div>
                     <div style="font-size:11px; color:#aaa; font-weight:bold;">ŞU AN ÇALAN</div>
-                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Günün Şarkısı ☕</div>
+                    <div id="songName" style="font-size:14px; font-weight:bold; color:#4a3f35;">Farazi V Kayra</div>
                 </div>
                 <button id="pBtn" onclick="pPause()" style="background:none; border:none; color:#ff7a59; font-size:26px; cursor:pointer; margin-left:auto; outline:none;">⏸</button>
             </div>
@@ -165,17 +164,16 @@
     <script>
         const aud = document.getElementById("audio");
 
-        // Sabit Medya Dosya Adları
-        const sarkiDosyasi = "sarki.mp3";
-        const videoDosyasi = "video.mp4";
+        // GitHub'daki Çift Uzantılı Dosya İsimleri
+        const sarkiDosyasi = "sarki.mp3.mp3";
+        const videoDosyasi = "video.mp4.mp4";
         
-        // Tam 8 Adet Fotoğrafın Kodda Arandığı İsimler
+        // GitHub'daki Çift Uzantılı Resim İsimleri
         const resimListesi = [
-            "resim1.jpeg", "resim2.jpeg", "resim3.jpeg", "resim4.jpeg", 
-            "resim5.jpeg", "resim6.jpeg", "resim7.jpeg", "resim8.jpeg"
+            "resim1.jpeg.jpeg", "resim2.jpeg.jpeg", "resim3.jpeg.jpeg", "resim4.jpeg.jpeg", 
+            "resim5.jpeg.jpeg", "resim6.jpeg.jpeg", "resim7.jpeg.jpeg", "resim8.jpeg.jpeg"
         ];
 
-        // Sayfa yüklenir yüklenmez doğrudan her şeyi başlatır
         window.onload = function() {
             start();
             initCounter();
@@ -183,10 +181,10 @@
 
         function start() {
             aud.src = sarkiDosyasi;
-            aud.play().catch(e => console.log("Otomatik oynatma engellendi, etkileşim bekleniyor."));
+            aud.play().catch(e => console.log("Otomatik oynatma engellendi."));
             startRain();
             createGallery();
-            setInterval(nextSlide, 3000); // 3 saniyede bir fotoğraf değişir
+            setInterval(nextSlide, 3000); 
             
             aud.addEventListener('timeupdate', () => {
                 if (aud.duration) {
@@ -196,12 +194,9 @@
             });
         }
 
-        // --- CANLI SAYAÇ SİSTEMİ ---
-        // Sayfa ilk kez açıldığında milisaniye cinsinden başlangıç zamanını kaydeder (219 günden başlatır)
         function initCounter() {
             let startTime = localStorage.getItem('oda_start_time');
             if (!startTime) {
-                // Şu anki zamandan 219 gün çıkartarak milisaniye başlangıcı buluyoruz
                 const daysInMs = 219 * 24 * 60 * 60 * 1000;
                 startTime = Date.now() - daysInMs;
                 localStorage.setItem('oda_start_time', startTime);
@@ -209,13 +204,11 @@
             
             function updateCounter() {
                 const diff = Date.now() - parseInt(startTime);
-                
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 
-                // Başına sıfır ekleme formatı (05:02:09 gibi)
                 const hDisplay = hours < 10 ? "0" + hours : hours;
                 const mDisplay = minutes < 10 ? "0" + minutes : minutes;
                 const sDisplay = seconds < 10 ? "0" + seconds : seconds;
@@ -223,19 +216,18 @@
                 document.getElementById("cDays").innerText = days;
                 document.getElementById("cTime").innerText = hDisplay + ":" + mDisplay + ":" + sDisplay;
             }
-            
             updateCounter();
-            setInterval(updateCounter, 1000); // Her saniye günceller
+            setInterval(updateCounter, 1000);
         }
 
-        // İki Arka Plan Arasında Geçiş Fonksiyonu
+        // İki Arka Plan Arasında Geçiş
         let currentBG = 1;
         function changeBackground() {
             if (currentBG === 1) {
-                document.body.style.backgroundImage = "url('manzara2.png')";
+                document.body.style.backgroundImage = "url('manzara2.png.jpeg')"; /* Sol listedeki isimle eşitlendi */
                 currentBG = 2;
             } else {
-                document.body.style.backgroundImage = "url('manzara1.png')";
+                document.body.style.backgroundImage = "url('manzara1.png.png')";
                 currentBG = 1;
             }
         }
@@ -266,7 +258,6 @@
             aud.play();
         }
 
-        // Çiçek Yağmuru Efekti
         function startRain() {
             setInterval(() => {
                 const el = document.createElement('div');

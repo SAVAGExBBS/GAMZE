@@ -5,6 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best Dinar Girl✨</title>
     <style>
+        /* --- KİLİT / GERİ SAYIM EKRANI (28.07.2026 Öncesi) --- */
+        #lockScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+        }
+
+        .lock-title {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            color: #ff7a59;
+            text-transform: uppercase;
+            animation: pulseText 2s infinite;
+        }
+
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+        }
+
+        .countdown-number {
+            font-size: 48px;
+            font-weight: bold;
+            font-family: monospace;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 122, 89, 0.5);
+        }
+
+        .countdown-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
         /* --- ARKA PLAN VE GEÇİŞ AYARLARI --- */
         body {
             margin: 0;
@@ -246,7 +306,6 @@
             background: #fffcfc;
         }
 
-        /* Mesaj Balonları Süslemesi */
         .msg-container {
             background: #fff0f2;
             padding: 10px 14px;
@@ -258,7 +317,6 @@
             align-self: flex-start;
         }
 
-        /* Eğer mesajı yazan mevcut kullanıcıysa sağ tarafta görünür */
         .msg-container.my-message {
             background: #ffe0b2;
             border-color: #ffd180;
@@ -581,6 +639,12 @@
                 bottom: 85px;
                 width: 280px;
             }
+            .countdown-number {
+                font-size: 32px;
+            }
+            .countdown-container {
+                gap: 10px;
+            }
         }
     </style>
 
@@ -589,6 +653,30 @@
 </head>
 <body>
 
+    <!-- KİLİT / GERİ SAYIM EKRANI -->
+    <div id="lockScreen">
+        <div class="lock-title">Bekle bakalım ✨</div>
+        <div class="countdown-container">
+            <div class="countdown-box">
+                <span id="lockDays" class="countdown-number">00</span>
+                <span class="countdown-label">Gün</span>
+            </div>
+            <div class="countdown-box">
+                <span id="lockHours" class="countdown-number">00</span>
+                <span class="countdown-label">Saat</span>
+            </div>
+            <div class="countdown-box">
+                <span id="lockMinutes" class="countdown-number">00</span>
+                <span class="countdown-label">Dakika</span>
+            </div>
+            <div class="countdown-box">
+                <span id="lockSeconds" class="countdown-number">00</span>
+                <span class="countdown-label">Saniye</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SÜRPRİZ VİDEO PANELİ -->
     <div id="surpriseVideoOverlay">
         <div class="surprise-container">
             <button class="close-surprise-btn" onclick="closeSurpriseVideo()">Kapat ✕</button>
@@ -662,7 +750,7 @@
     <audio id="audio"></audio>
 
 <script>
-    // --- GÜNCEL FIREBASE YAPILANDIRMASI ---
+    // --- FIREBASE YAPILANDIRMASI ---
     const firebaseConfig = {
         apiKey: "AIzaSyDbzks98UQgBwzJV1ICZX2w2knYFwmHcrw",
         authDomain: "anilarimiz-311e5.firebaseapp.com",
@@ -674,7 +762,6 @@
         measurementId: "G-DYKWBWSL8N"
     };
 
-    // Firebase Başlatma
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
     const chatRef = database.ref('messages');
@@ -696,44 +783,64 @@
         localStorage.setItem('chat_device_id', deviceId);
     }
 
+    // Target Date: 28 Temmuz 2026 00:00:00 (Aylar 0-indexed: 6 = Temmuz)
+    const targetDate = new Date(2026, 6, 28, 0, 0, 0);
+
     window.onload = function() {
+        startLockCountdown();
+    }
+
+    // --- KİLİT GERİ SAYIM SİSTEMİ ---
+    function startLockCountdown() {
+        const lockTimer = setInterval(() => {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                // Zaman geldi! Kilit ekranını kaldır ve uygulamayı başlat.
+                clearInterval(lockTimer);
+                document.getElementById('lockScreen').style.display = 'none';
+                initMainSite();
+            } else {
+                // Kalan zamanı hesapla
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('lockDays').innerText = days < 10 ? "0" + days : days;
+                document.getElementById('lockHours').innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById('lockMinutes').innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById('lockSeconds').innerText = seconds < 10 ? "0" + seconds : seconds;
+            }
+        }, 1000);
+    }
+
+    // --- ANA SİTENİN BAŞLATILMASI ---
+    function initMainSite() {
         start();
         initCounter();
         checkUsernameAndSync();
         listenMessages();
-        checkSurpriseDate(); // Tarih kontrolünü tetikliyoruz
+        checkSurpriseDate();
     }
 
-    // --- ÖZEL TARİH VE VİDEO KONTROLÜ (28.07.2026) ---
     function checkSurpriseDate() {
-        const today = new Date();
-        // Hedef tarih: 28 Temmuz 2026 (JavaScript'te aylar 0'dan başlar, Temmuz = 6)
-        const targetDate = new Date(2026, 6, 28);
-
-        // Eğer bugünün tarihi 28.07.2026 veya sonrasındaysa videoyu göster
-        if (today >= targetDate) {
-            // Sürpriz video panelini açıyoruz
-            document.getElementById('surpriseVideoOverlay').style.display = 'flex';
-            
-            // Arka plandaki ana müziği durduruyoruz ki sesler karışmasın
-            if(!aud.paused) {
-                aud.pause();
-                document.getElementById("pBtn").innerText="▶️";
-            }
-
-            // YouTube video linkini embed kodu ve otomatik oynatma parametresiyle iframe'e yüklüyoruz
-            const videoId = "rgvmliHOIOE";
-            document.getElementById('surprisePlayer').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1`;
+        document.getElementById('surpriseVideoOverlay').style.display = 'flex';
+        
+        if(!aud.paused) {
+            aud.pause();
+            document.getElementById("pBtn").innerText="▶️";
         }
+
+        const videoId = "rgvmliHOIOE";
+        document.getElementById('surprisePlayer').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1`;
     }
 
     function closeSurpriseVideo() {
-        // Paneli gizle
         document.getElementById('surpriseVideoOverlay').style.display = 'none';
-        // Video sesini tamamen kesmek için src'yi temizle
         document.getElementById('surprisePlayer').src = "";
         
-        // Kapatınca istersen arka plan müziğini tekrar başlatabilirsin
         aud.play();
         document.getElementById("pBtn").innerText="⏸";
     }
@@ -783,7 +890,6 @@
 
     function start() {
         aud.src = sarkiDosyasi;
-        // Eğer sürpriz tarihi gelmediyse müziği çalmaya çalış, geldiyse zaten tarih kontrolünde durdurulacak
         aud.play().catch(e => console.log("Otomatik oynatma engellendi."));
         startRain();
         createGallery();
@@ -823,7 +929,6 @@
         setInterval(updateCounter, 1000);
     }
 
-    // --- SOHBET FONKSİYONLARI ---
     function toggleChat() {
         const chat = document.getElementById('chatOverlay');
         if (chat.style.display === 'flex') {
@@ -891,7 +996,6 @@
         container.scrollTop = container.scrollHeight;
     }
 
-    // --- DİĞER FONKSİYONLAR ---
     function openManzara() {
         document.getElementById('manzaraOverlay').style.display = 'block';
     }
